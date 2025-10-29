@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\PSCommercetools.Provider.Generator\PSCommercetools.Provider.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="commercetools.Sdk.Api"/>
+        <PackageReference Include="Microsoft.PowerShell.SDK"/>
+        <PackageReference Include="JetBrains.Annotations"/>
+        <PackageReference Include="DotNetEnv"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="PSCommercetools.Provider.format.ps1xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="PSCommercetools.Provider.psd1">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <NoWarn>CS0618</NoWarn>
+    </PropertyGroup>
+
+</Project>
