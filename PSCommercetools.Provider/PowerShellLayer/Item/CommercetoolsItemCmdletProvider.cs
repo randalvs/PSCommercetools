@@ -13,7 +13,9 @@ public abstract class CommercetoolsItemCmdletProvider : CommercetoolsDriveCmdlet
     {
         try
         {
-            var commercetoolsPath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+            CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+            var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
 
             IEntityServiceParameters? commercetoolsEntityServiceParameters =
                 EntityServiceParametersFactory.CreateFromPsParameters(DynamicParameters, Filter);
@@ -46,7 +48,9 @@ public abstract class CommercetoolsItemCmdletProvider : CommercetoolsDriveCmdlet
     {
         try
         {
-            var commercetoolsPath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+            CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+            var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
             if (commercetoolsPath.IsDrive)
             {
                 return true;
@@ -60,7 +64,7 @@ public abstract class CommercetoolsItemCmdletProvider : CommercetoolsDriveCmdlet
                 return false;
             }
 
-            var parentCommercetoolsPath = CommercetoolsDrivePath.Create(PSDriveInfo, parentPath);
+            var parentCommercetoolsPath = CommercetoolsDrivePath.Create(drive, parentPath);
 
             IBaseEntityService commercetoolsEntityService = EntityServiceFactory.CreateFromPath(parentCommercetoolsPath);
 
@@ -79,7 +83,9 @@ public abstract class CommercetoolsItemCmdletProvider : CommercetoolsDriveCmdlet
     {
         try
         {
-            var commercetoolsPath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+            CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+            var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
             IBaseEntityService entityService = EntityServiceFactory.CreateFromPath(commercetoolsPath);
 
             IEntityServiceParameters? commercetoolsEntityServiceParameters =

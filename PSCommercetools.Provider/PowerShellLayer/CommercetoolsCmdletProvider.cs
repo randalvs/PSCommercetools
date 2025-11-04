@@ -22,7 +22,7 @@ public sealed class CommercetoolsCmdletProvider : CommercetoolsNavigationCmdletP
     private void WriteStartupMessage()
     {
         Host.UI.WriteLine(string.Empty);
-        Host.UI.WriteLine("Commercetools PowerShell provider (v0.0.2) started.");
+        Host.UI.WriteLine("Commercetools PowerShell provider (v0.0.3) started.");
         Host.UI.WriteLine(string.Empty);
     }
 
