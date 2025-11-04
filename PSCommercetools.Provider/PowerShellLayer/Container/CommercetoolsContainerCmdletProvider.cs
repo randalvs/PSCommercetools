@@ -5,6 +5,7 @@ using System.Management.Automation;
 using PSCommercetools.Provider.EntityServiceLayer.Models;
 using PSCommercetools.Provider.EntityServiceLayer.Parameters;
 using PSCommercetools.Provider.EntityServiceLayer.Services;
+using PSCommercetools.Provider.PowerShellLayer.Drive;
 using PSCommercetools.Provider.PowerShellLayer.Item;
 
 namespace PSCommercetools.Provider.PowerShellLayer.Container;
@@ -15,7 +16,9 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
     {
         try
         {
-            var commercetoolsPath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+            CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+            var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
 
             if (commercetoolsPath.HasEmptyPath)
             {
@@ -44,7 +47,9 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
     {
         try
         {
-            var commercetoolsDrivePath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+            CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+            var commercetoolsDrivePath = CommercetoolsDrivePath.Create(drive, path);
 
             IBaseEntityService commercetoolsEntityService = EntityServiceFactory.CreateFromPath(commercetoolsDrivePath);
             IEntityServiceParameters? commercetoolsEntityServiceParameters =
@@ -96,7 +101,9 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
 
     protected override object GetChildItemsDynamicParameters(string path, bool recurse)
     {
-        var commercetoolsPath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+        CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+        var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
 
         if (commercetoolsPath.IsDrive)
         {
@@ -115,7 +122,9 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
                 return;
             }
 
-            var commercetoolsDrivePath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+            CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+            var commercetoolsDrivePath = CommercetoolsDrivePath.Create(drive, path);
             IBaseEntityService commercetoolsEntityService = EntityServiceFactory.CreateFromPath(commercetoolsDrivePath);
 
             IEntityServiceParameters? commercetoolsEntityServiceParameters =

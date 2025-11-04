@@ -2,6 +2,7 @@ using System;
 using System.Management.Automation;
 using PSCommercetools.Provider.EntityServiceLayer.Services;
 using PSCommercetools.Provider.PowerShellLayer.Container;
+using PSCommercetools.Provider.PowerShellLayer.Drive;
 using PSCommercetools.Provider.PowerShellLayer.Extensions;
 
 namespace PSCommercetools.Provider.PowerShellLayer.Navigation;
@@ -14,7 +15,9 @@ public abstract class CommercetoolsNavigationCmdletProvider : CommercetoolsConta
     {
         try
         {
-            var commercetoolsPath = CommercetoolsDrivePath.Create(PSDriveInfo, path);
+            CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
+
+            var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
 
             IBaseEntityService commercetoolsEntityService = EntityServiceFactory.CreateFromPath(commercetoolsPath);
 
