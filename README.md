@@ -40,7 +40,11 @@ including CRUD (Create, Read, Update, Delete) and other operations.
 
 ### Installation
 
-`this will be added later`
+The provider is available on the [PowerShell Gallery](https://www.powershellgallery.com/) through
+[PowerShellGet](https://learn.microsoft.com/en-us/powershell/module/powershellget). To install it, run the following
+command in a PowerShell console:
+
+`Import-Module PSCommercetools.Provider`
 
 ### Supported entities
 
