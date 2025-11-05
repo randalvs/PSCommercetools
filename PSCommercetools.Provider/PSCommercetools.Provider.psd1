@@ -1,6 +1,6 @@
 @{
     RootModule = 'PSCommercetools.Provider.dll'
-    ModuleVersion = '0.0.1'
+    ModuleVersion = '0.0.2'
     GUID = '3d2db01e-a84a-433a-9820-7525b8f0701d'
     FormatsToProcess = 'PSCommercetools.Provider.format.ps1xml'
     Author = 'Randal van Splunteren'
