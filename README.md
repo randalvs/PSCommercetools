@@ -69,6 +69,7 @@ The following table shows the entities and operations that are currently support
 | inventory entry   | ✔️     | ✔️   | ✔️     | ✔️     |
 | shipping method   | ✔️     | ✔️   | ✔️     | ✔️     |
 | order             | ✔️     | ✔️   | ✔️     | ✔️     |
+| payment           | ✔️     | ✔️   | ✔️     | ✔️     |
 | payment method    | ✔️     | ✔️   | ✔️     | ✔️     |
 | product           | ✔️     | ✔️   | ✔️     | ✔️     |
 | product discount  | ✔️     | ✔️   | ✔️     | ✔️     |
@@ -80,7 +81,7 @@ The following table shows the entities and operations that are currently support
 | shipping zone     | ✔️     | ✔️   | ✔️     | ✔️     |
 | shopping list     | ✔️     | ✔️   | ✔️     | ✔️     |
 | standalone price  | ✔️     | ✔️   | ✔️     | ✔️     |
-| state             | ❌      | ❌    | ❌      | ❌      |
+| state             | ✔️     | ✔️   | ✔️     | ✔️     |
 | store             | ✔️     | ✔️   | ✔️     | ✔️     |
 | subscription      | ❌      | ❌    | ❌      | ❌      |
 | tax category      | ✔️     | ✔️   | ✔️     | ✔️     |
@@ -98,8 +99,8 @@ The provider support the following native cmdlets:
 - [Remove-Item](docs/Remove-Item%20cmdlet.md)
 - [Test-Path](docs/Test-Path%20cmdlet.md)
 - [Set-Location](docs/Set-Location%20cmdlet.md)
-- [New-PsDrive](docs/New-PsDrive%20cmdlet.md)
-- [Remove-PsDrive](docs/Remove-PsDrive%20cmdlet.md)
+- [New-PsDrive](docs/New-PSDrive%20cmdlet.md)
+- [Remove-PsDrive](docs/Remove-PSDrive%20cmdlet.md)
 
 ### Custom cmdlets
 
