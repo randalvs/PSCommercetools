@@ -251,6 +251,27 @@ internal static class FormatDefinitions
             .WithProperty(p => p.WithLabel("Key").WithName("Key"))
             .WithCreatedProperty()
             .WithModifiedProperty()
+            .Build(),
+
+        new EntitiesGroupBuilder()
+            .WithTypeName("commercetools.Sdk.Api.Models.Payments.Payment")
+            .WithIdProperty()
+            .WithVersionProperty()
+            .WithProperty(p => p.WithLabel("Key").WithName("Key"))
+            .WithProperty(p => p.WithLabel("Method").WithScriptBlock("$_.PaymentMethodInfo.Method"))
+            .WithCreatedProperty()
+            .WithModifiedProperty()
+            .Build(),
+
+        new EntitiesGroupBuilder()
+            .WithTypeName("commercetools.Sdk.Api.Models.States.State")
+            .WithIdProperty()
+            .WithVersionProperty()
+            .WithProperty(p => p.WithLabel("Key").WithName("Key"))
+            .WithProperty(p => p.WithLabel("Type").WithScriptBlock("$_.Type.JsonName"))
+            .WithProperty(p => p.WithLabel("Built in").WithName("BuiltIn"))
+            .WithCreatedProperty()
+            .WithModifiedProperty()
             .Build()
     ];
 }
