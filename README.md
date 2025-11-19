@@ -17,7 +17,7 @@ including CRUD (Create, Read, Update, Delete) and other operations.
 
 ### Quick start
 
-1. Install the provider from the PowerShell Gallery.
+1. Install the provider from the PowerShell Gallery (see Installation paragraph below).
 2. Open a PowerShell console session.
 3. In Commercetools Merchant Center create a new API client.
 4. Import the PowerShell module by entering:
@@ -44,7 +44,11 @@ The provider is available on the [PowerShell Gallery](https://www.powershellgall
 [PowerShellGet](https://learn.microsoft.com/en-us/powershell/module/powershellget). To install it, run the following
 command in a PowerShell console:
 
-`Import-Module PSCommercetools.Provider`
+`Install-Module PSCommercetools.Provider`
+
+#### Requirements
+
+Because the provider runs on .Net 9.0 runtime, Powershell 7.5 or above is required.
 
 ### Supported entities
 
