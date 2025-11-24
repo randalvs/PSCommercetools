@@ -10,6 +10,7 @@ namespace PSCommercetools.Provider.PowerShellLayer.Navigation;
 public abstract class CommercetoolsNavigationCmdletProvider : CommercetoolsContainerCmdletProvider
 {
     public override char ItemSeparator => '\\';
+    public override char AltItemSeparator => '/';
 
     protected override bool IsItemContainer(string path)
     {
@@ -34,12 +35,19 @@ public abstract class CommercetoolsNavigationCmdletProvider : CommercetoolsConta
     {
         try
         {
-            if (path.EndsWith('\\'))
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return path;
+            }
+
+            if (path.EndsWith('\\') || path.EndsWith('/'))
             {
                 path = path[..^1];
             }
 
-            int separatorIndex = path.LastIndexOf(@"\", StringComparison.OrdinalIgnoreCase);
+            int lastBack = path.LastIndexOf('\\');
+            int lastFwd = path.LastIndexOf('/');
+            int separatorIndex = Math.Max(lastBack, lastFwd);
             string retVal = separatorIndex == -1 ? path : path[(separatorIndex + 1)..];
 
             return retVal;

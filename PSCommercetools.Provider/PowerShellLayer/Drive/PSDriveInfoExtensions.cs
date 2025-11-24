@@ -17,7 +17,24 @@ internal static class PSDriveInfoExtensions
 
     public static bool HasValidRoot(this PSDriveInfo drive)
     {
-        return !string.IsNullOrWhiteSpace(drive.Root) &&
-               drive.Root.StartsWith($@"{drive.Name}:\", StringComparison.OrdinalIgnoreCase);
+        if (string.IsNullOrWhiteSpace(drive.Root))
+        {
+            return false;
+        }
+
+        // Accept both Windows and Unix style after the drive name
+        if (!drive.Root.StartsWith($"{drive.Name}:", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        if (drive.Root.Length == drive.Name.Length + 1)
+        {
+            // Exactly "name:" is also considered valid
+            return true;
+        }
+
+        char sep = drive.Root[drive.Name.Length + 1];
+        return sep == '\\' || sep == '/';
     }
 }

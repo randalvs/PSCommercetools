@@ -4,6 +4,6 @@ public static class StringExtensions
 {
     public static string RemoveTrailingSlash(this string value)
     {
-        return value.TrimEnd('\\');
+        return value.TrimEnd('\\', '/');
     }
 }

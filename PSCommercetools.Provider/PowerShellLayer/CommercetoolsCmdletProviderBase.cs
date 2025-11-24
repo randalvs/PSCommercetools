@@ -32,17 +32,44 @@ public class CommercetoolsCmdletProviderBase : NavigationCmdletProvider
 
     protected CommercetoolsPSDriveInfo ResolveDriveInfo(string path)
     {
-        var drive = (PSDriveInfo ?? SessionState.Drive.Current) as CommercetoolsPSDriveInfo;
-
-        if (drive != null || SessionState == null)
+        // Prefer the current drive,, if it is our drive
+        var current = (PSDriveInfo ?? SessionState?.Drive.Current) as CommercetoolsPSDriveInfo;
+        if (current != null)
         {
-            return drive == null ? throw new InvalidOperationException("Unable to determine PSDriveInfo context.") : drive;
+            return current;
         }
 
-        _ = SessionState.Path.GetResolvedProviderPathFromPSPath(path, out ProviderInfo provider);
-        drive = provider?.Drives?.FirstOrDefault() as CommercetoolsPSDriveInfo;
+        if (SessionState == null)
+        {
+            throw new InvalidOperationException("Unable to determine PSDriveInfo context.");
+        }
 
-        return drive == null ? throw new InvalidOperationException("Unable to determine PSDriveInfo context.") : drive;
+        // Try to resolve by drive name from the path without doing path resolution (cross-platform safe)
+        if (!string.IsNullOrWhiteSpace(path))
+        {
+            int driveSeparatorIndex = path.IndexOf(':');
+            if (driveSeparatorIndex > 0)
+            {
+                string driveName = path[..driveSeparatorIndex];
+                var providerDrives = ProviderInfo?.Drives;
+                var namedDrive = providerDrives?
+                    .FirstOrDefault(d => d.Name.Equals(driveName, StringComparison.OrdinalIgnoreCase))
+                    as CommercetoolsPSDriveInfo;
+                if (namedDrive != null)
+                {
+                    return namedDrive;
+                }
+            }
+        }
+
+        // Fallback to the first drive of this provider if available
+        var anyDrive = ProviderInfo?.Drives?.FirstOrDefault() as CommercetoolsPSDriveInfo;
+        if (anyDrive != null)
+        {
+            return anyDrive;
+        }
+
+        throw new InvalidOperationException("Unable to determine PSDriveInfo context.");
     }
 
     protected void WriteProviderDebug(string message, [CallerMemberName] string? callerMemberName = "")
