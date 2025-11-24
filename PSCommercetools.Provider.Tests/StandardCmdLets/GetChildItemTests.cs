@@ -55,7 +55,9 @@ public sealed class GetChildItemTests
             new ProjectChildEntity("discountcodes"),
             new ProjectChildEntity("producttypes"),
             new ProjectChildEntity("attributegroups"),
-            new ProjectChildEntity("apiclients")
+            new ProjectChildEntity("apiclients"),
+            new ProjectChildEntity("states"),
+            new ProjectChildEntity("payments")
         ]);
     }
 
@@ -108,6 +110,8 @@ public sealed class GetChildItemTests
                     "tax-categories" => TaxCategoryTestDataProvider.Get(count).AsPagedQueryResponse()
                         .ToCommercetoolsJsonContent(),
                     "api-clients" => ApiClientTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
+                    "states" => ApiClientTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
+                    "payments" => ApiClientTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
                     _ => throw new NotImplementedException()
                 };
             });
@@ -144,7 +148,9 @@ public sealed class GetChildItemTests
             new ProjectChildEntity("discountcodes") { ChildCount = "20" },
             new ProjectChildEntity("producttypes") { ChildCount = "20" },
             new ProjectChildEntity("attributegroups") { ChildCount = "20" },
-            new ProjectChildEntity("apiclients") { ChildCount = "20" }
+            new ProjectChildEntity("apiclients") { ChildCount = "20" },
+            new ProjectChildEntity("states") { ChildCount = "20" },
+            new ProjectChildEntity("payments") { ChildCount = "20" }
         ]);
     }
 
