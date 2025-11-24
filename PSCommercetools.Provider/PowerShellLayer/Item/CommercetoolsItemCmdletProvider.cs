@@ -13,6 +13,8 @@ public abstract class CommercetoolsItemCmdletProvider : CommercetoolsDriveCmdlet
     {
         try
         {
+            WriteProviderDebug($"path={path}");
+
             CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
 
             var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
@@ -48,6 +50,8 @@ public abstract class CommercetoolsItemCmdletProvider : CommercetoolsDriveCmdlet
     {
         try
         {
+            WriteProviderDebug($"path={path}");
+
             CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
 
             var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
@@ -83,6 +87,8 @@ public abstract class CommercetoolsItemCmdletProvider : CommercetoolsDriveCmdlet
     {
         try
         {
+            WriteProviderDebug($"path={path}");
+
             CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
 
             var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);

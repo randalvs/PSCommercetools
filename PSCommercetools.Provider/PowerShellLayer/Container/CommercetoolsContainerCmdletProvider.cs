@@ -16,6 +16,8 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
     {
         try
         {
+            WriteProviderDebug($"path={path}");
+
             CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
 
             var commercetoolsPath = CommercetoolsDrivePath.Create(drive, path);
@@ -47,6 +49,8 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
     {
         try
         {
+            WriteProviderDebug($"path={path}");
+
             CommercetoolsPSDriveInfo drive = ResolveDriveInfo(path);
 
             var commercetoolsDrivePath = CommercetoolsDrivePath.Create(drive, path);
@@ -117,6 +121,8 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
     {
         try
         {
+            WriteProviderDebug($"path={path}");
+
             if (!ShouldProcess(path, "Remove"))
             {
                 return;
