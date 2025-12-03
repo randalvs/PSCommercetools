@@ -272,6 +272,16 @@ internal static class FormatDefinitions
             .WithProperty(p => p.WithLabel("Built in").WithName("BuiltIn"))
             .WithCreatedProperty()
             .WithModifiedProperty()
+            .Build(),
+
+        new EntitiesGroupBuilder()
+            .WithTypeName("commercetools.Sdk.Api.Models.Types.Type")
+            .WithIdProperty()
+            .WithVersionProperty()
+            .WithProperty(p => p.WithLabel("Key").WithName("Key"))
+            .WithProperty(p => p.WithLabel("Name").WithScriptBlock("$_.Name.Values| Select-Object -First 1"))
+            .WithCreatedProperty()
+            .WithModifiedProperty()
             .Build()
     ];
 }

@@ -85,7 +85,7 @@ The following table shows the entities and operations that are currently support
 | store             | ✔️     | ✔️   | ✔️     | ✔️     |
 | subscription      | ❌      | ❌    | ❌      | ❌      |
 | tax category      | ✔️     | ✔️   | ✔️     | ✔️     |
-| type              | ❌      | ❌    | ❌      | ❌      |
+| type              | ✔️     | ✔️   | ✔️     | ✔️     |
 
 Omitted entities in the table above are not (yet) supported.
 

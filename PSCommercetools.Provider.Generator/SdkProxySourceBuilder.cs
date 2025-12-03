@@ -24,7 +24,7 @@ internal sealed class SdkProxySourceBuilder(SdkProxyMetadata sdkProxyMetadata)
                  {
                      internal partial class {{sdkProxyMetadata.EntityName}}SdkProxy : SdkProxyBase, ISdkProxy<{{sdkProxyMetadata.EntityInterfaceName}}>
                      {
-                         public Type EntityType => typeof({{sdkProxyMetadata.EntityInterfaceName}});
+                         public System.Type EntityType => typeof({{sdkProxyMetadata.EntityInterfaceName}});
 
                          {{CreateGetFuncBody()}}
                          
