@@ -86,6 +86,7 @@ The following table shows the entities and operations that are currently support
 | subscription      | ❌      | ❌    | ❌      | ❌      |
 | tax category      | ✔️     | ✔️   | ✔️     | ✔️     |
 | type              | ✔️     | ✔️   | ✔️     | ✔️     |
+| zone              | ✔️     | ✔️   | ✔️     | ✔️     |
 
 Omitted entities in the table above are not (yet) supported.
 
