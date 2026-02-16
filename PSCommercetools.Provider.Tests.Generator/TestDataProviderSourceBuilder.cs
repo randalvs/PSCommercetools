@@ -76,7 +76,7 @@ public sealed class TestDataProviderSourceBuilder
                      {
                          Randomizer.Seed = new Random(RandomSeed);
 
-                         Faker<{{provider.EntityName}}> {{lowerEntityName}}Faker = new Faker<{{provider.EntityName}}>()
+                         Faker<commercetools.Sdk.Api.Models.{{provider.CommercetoolsSdkModelNamespaceEntityName}}.{{provider.EntityName}}> {{lowerEntityName}}Faker = new Faker<commercetools.Sdk.Api.Models.{{provider.CommercetoolsSdkModelNamespaceEntityName}}.{{provider.EntityName}}>()
                              .RuleFor(o => o.Id, faker => faker.Random.Guid().ToString())
                              {{(provider.HasKey ? ".RuleFor(o => o.Key, faker => faker.Random.Guid().ToString())" : string.Empty)}}
                              {{(provider.HasVersion ? ".RuleFor(o => o.Version, faker => faker.Random.Int(1, 10))" : string.Empty)}}
