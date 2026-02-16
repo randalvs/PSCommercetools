@@ -41,6 +41,7 @@ public sealed class GetChildItemTests
             new ProjectChildEntity("carts"),
             new ProjectChildEntity("orders"),
             new ProjectChildEntity("customers"),
+            new ProjectChildEntity("customergroups"),
             new ProjectChildEntity("businessunits"),
             new ProjectChildEntity("customobjects"),
             new ProjectChildEntity("channels"),
@@ -90,6 +91,8 @@ public sealed class GetChildItemTests
                     "custom-objects" => CustomObjectTestDataProvider.Get(count).AsPagedQueryResponse()
                         .ToCommercetoolsJsonContent(),
                     "customers" => CustomerTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
+                    "customergroups" => CustomerGroupTestDataProvider.Get(count).AsPagedQueryResponse()
+                        .ToCommercetoolsJsonContent(),
                     "discount-codes" => DiscountCodeTestDataProvider.Get(count).AsPagedQueryResponse()
                         .ToCommercetoolsJsonContent(),
                     "inventory" => InventoryEntryTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
@@ -134,6 +137,7 @@ public sealed class GetChildItemTests
             new ProjectChildEntity("carts") { ChildCount = "20" },
             new ProjectChildEntity("orders") { ChildCount = "20" },
             new ProjectChildEntity("customers") { ChildCount = "20" },
+            new ProjectChildEntity("customergroups") { ChildCount = "20" },
             new ProjectChildEntity("businessunits") { ChildCount = "20" },
             new ProjectChildEntity("customobjects") { ChildCount = "20" },
             new ProjectChildEntity("channels") { ChildCount = "20" },

@@ -24,6 +24,7 @@ public sealed class SdkProxyGeneratorTests
     [InlineData("Category")]
     [InlineData("Channel")]
     [InlineData("Customer")]
+    [InlineData("CustomerGroup")]
     [InlineData("DiscountCode")]
     [InlineData("InventoryEntry")]
     [InlineData("Order")]

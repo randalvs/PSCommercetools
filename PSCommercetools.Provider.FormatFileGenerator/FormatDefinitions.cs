@@ -98,6 +98,15 @@ internal static class FormatDefinitions
             .Build(),
 
         new EntitiesGroupBuilder()
+            .WithTypeName("commercetools.Sdk.Api.Models.CustomerGroups.CustomerGroup")
+            .WithIdProperty()
+            .WithVersionProperty()
+            .WithProperty(p => p.WithLabel("Name").WithName("Name"))
+            .WithCreatedProperty()
+            .WithModifiedProperty()
+            .Build(),
+
+        new EntitiesGroupBuilder()
             .WithTypeName("commercetools.Sdk.Api.Models.BusinessUnits.Company")
             .WithTypeName("commercetools.Sdk.Api.Models.BusinessUnits.Division")
             .WithIdProperty()

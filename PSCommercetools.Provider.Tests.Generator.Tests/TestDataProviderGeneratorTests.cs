@@ -25,6 +25,7 @@ public sealed class TestDataProviderGeneratorTests
     [InlineData("CategoryTestData")]
     [InlineData("ChannelTestData")]
     [InlineData("CustomerTestData")]
+    [InlineData("CustomerGroupTestData")]
     [InlineData("CustomObjectTestData")]
     [InlineData("DiscountCodeTestData")]
     [InlineData("InventoryEntryTestData")]

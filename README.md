@@ -64,6 +64,7 @@ The following table shows the entities and operations that are currently support
 | category          | ✔️     | ✔️   | ✔️     | ✔️     |
 | channel           | ✔️     | ✔️   | ✔️     | ✔️     |
 | customer          | ✔️     | ✔️   | ✔️     | ✔️     |
+| customer group    | ✔️     | ✔️   | ✔️     | ✔️     |
 | custom object     | ✔️     | ✔️   | ✔️     | ✔️     |
 | discount code     | ✔️     | ✔️   | ✔️     | ✔️     |
 | inventory entry   | ✔️     | ✔️   | ✔️     | ✔️     |
