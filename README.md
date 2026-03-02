@@ -38,6 +38,12 @@ including CRUD (Create, Read, Update, Delete) and other operations.
 
    `Get-ChildItem psct:\`
 
+### Tutorial
+
+Tutorials on how to work with the provider can be found in
+the [wiki](https://github.com/randalvs/PSCommercetools/wiki#tutorial) page and
+on [youtube](https://www.youtube.com/watch?v=OxyrjwNcrDQ).
+
 ### Installation
 
 The provider is available on the [PowerShell Gallery](https://www.powershellgallery.com/) through
@@ -95,23 +101,23 @@ Omitted entities in the table above are not (yet) supported.
 
 The provider support the following native cmdlets:
 
-- [Get-ChildItem](docs/Get-ChildItem%20cmdlet.md)
-- [Get-Item](docs/Get-Item%20cmdlet.md)
-- [New-Item](docs/New-Item%20cmdlet.md)
-- [Remove-Item](docs/Remove-Item%20cmdlet.md)
-- [Test-Path](docs/Test-Path%20cmdlet.md)
-- [Set-Location](docs/Set-Location%20cmdlet.md)
-- [New-PsDrive](docs/New-PSDrive%20cmdlet.md)
-- [Remove-PsDrive](docs/Remove-PSDrive%20cmdlet.md)
+- [Get-ChildItem](https://github.com/randalvs/PSCommercetools/wiki#get-childitem-cmdlet)
+- [Get-Item](https://github.com/randalvs/PSCommercetools/wiki#get-item-cmdlet)
+- [New-Item](https://github.com/randalvs/PSCommercetools/wiki#new-item-cmdlet)
+- [Remove-Item](https://github.com/randalvs/PSCommercetools/wiki#remove-item-cmdlet)
+- [Test-Path](https://github.com/randalvs/PSCommercetools/wiki#test-path-cmdlet)
+- [Set-Location](https://github.com/randalvs/PSCommercetools/wiki#set-location-cmdlet)
+- [New-PsDrive](https://github.com/randalvs/PSCommercetools/wiki#new-psdrive-cmdlet)
+- [Remove-PsDrive](https://github.com/randalvs/PSCommercetools/wiki#remove-psdrive-cmdlet)
 
 ### Custom cmdlets
 
 There are also a number of custom cmdlets specific to the Commercetools provider:
 
-- [ConvertTo-CtJson](docs/ConvertTo-CtJson%20cmdlet.md)
-- [Publish-Product](docs/Publish-Product%20cmdlet.md)
-- [Unpublish-Product](docs/Unpublish-Product%20cmdlet.md)
-- [Update-Item](docs/Update-Item%20cmdlet.md)
+- [ConvertTo-CtJson](https://github.com/randalvs/PSCommercetools/wiki#convertto-ctjson-cmdlet)
+- [Publish-Product](https://github.com/randalvs/PSCommercetools/wiki#publish-product-cmdlet)
+- [Unpublish-Product](https://github.com/randalvs/PSCommercetools/wiki#publish-product-cmdlet)
+- [Update-Item](https://github.com/randalvs/PSCommercetools/wiki#update-item-cmdlet)
 
 ### Sample scripts
 
