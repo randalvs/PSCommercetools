@@ -38,6 +38,11 @@ including CRUD (Create, Read, Update, Delete) and other operations.
 
    `Get-ChildItem psct:\`
 
+### Tutorial
+
+Tutorials on how to work with the provider can be found in the [wiki](docs/wiki) page and
+on [youtube](https://www.youtube.com/watch?v=OxyrjwNcrDQ).
+
 ### Installation
 
 The provider is available on the [PowerShell Gallery](https://www.powershellgallery.com/) through
