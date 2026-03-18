@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Management.Automation;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -8,7 +10,9 @@ using commercetools.Sdk.Api.Models.Channels;
 using commercetools.Sdk.Api.Models.Common;
 using commercetools.Sdk.Api.Models.CustomObjects;
 using commercetools.Sdk.Api.Models.Products;
+using FluentAssertions;
 using FluentAssertions.Execution;
+using PSCommercetools.Provider.Tests.Extensions;
 using PSCommercetools.Provider.Tests.Infrastructure;
 using PSCommercetools.Provider.Tests.TestDataProviders;
 using RichardSzalay.MockHttp;
@@ -51,7 +55,7 @@ public sealed class UpdateItemTests
             ).Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
 
         // Act
-        testHost.InvokeCommand("Update-Item", p => p
+        Collection<PSObject> psObjects = testHost.InvokeCommand("Update-Item", p => p
             .WithParameter("Path", $@"ct-test:\channels\{channel.Id}")
             .WithParameter("Actions", """
                                       [
@@ -72,6 +76,8 @@ public sealed class UpdateItemTests
         // Assert
         using var _ = new AssertionScope();
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+        psObjects.BaseObjectsAreAllOfType<IChannel>().Should().BeTrue();
+        psObjects.GetBaseObjects<IChannel>().Should().HaveCount(1);
     }
 
     [Fact]
@@ -114,7 +120,7 @@ public sealed class UpdateItemTests
             ).Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
 
         // Act
-        testHost
+        Collection<PSObject> psObjects = testHost
             .InvokePipeline(cb => cb
                 .WithCommand("Get-ChildItem", p => p
                     .WithParameter("Path", @$"ct-test:\channels\{channel.Id}")
@@ -140,6 +146,8 @@ public sealed class UpdateItemTests
         // Assert
         using var _ = new AssertionScope();
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+        psObjects.BaseObjectsAreAllOfType<IChannel>().Should().BeTrue();
+        psObjects.GetBaseObjects<IChannel>().Should().HaveCount(1);
     }
 
     [Fact]
@@ -170,25 +178,6 @@ public sealed class UpdateItemTests
                     }
                 }
             ).Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
-
-//         Collection<PSObject> result = testHost.InvokeScript($"""
-//                                                              Add-Type -Path "C:\Projects\CTPS\PSCommercetools\PSCommercetools.Provider.Tests\bin\Debug\net8.0\commercetools.Sdk.Api.dll"
-//
-//                                                              $changeKeyAction = New-Object -TypeName "commercetools.Sdk.Api.Models.Channels.ChannelChangeKeyAction"
-//                                                              $changeKeyAction.Key = "myNewChannelKey"
-//
-//                                                              $nameLocalizedString = New-Object -TypeName "commercetools.Sdk.Api.Models.Common.LocalizedString"
-//                                                              $nameLocalizedString.Add("en", "new Channel Name EN")
-//
-//                                                              $changeNameAction = New-Object -TypeName "commercetools.Sdk.Api.Models.Channels.ChannelChangeNameAction"
-//                                                              $changeNameAction.Name = $nameLocalizedString
-//
-//                                                              $actionsList = New-Object "System.Collections.Generic.List``1[[commercetools.Sdk.Api.Models.Channels.IChannelUpdateAction]]"
-//                                                              $actionsList.Add($changeKeyAction)
-//                                                              $actionsList.Add($changeNameAction)
-//
-//                                                              Update-Item -Path ct-test:\channels\{channel.Id} -Actions $actionsList
-//                                                              """);
 
 
         var assembly = Assembly.GetExecutingAssembly();
@@ -251,7 +240,7 @@ public sealed class UpdateItemTests
             .Respond(HttpStatusCode.OK, _ => customObject.ToCommercetoolsJsonContent());
 
         // Act
-        testHost.InvokeCommand("Update-Item", p => p
+        Collection<PSObject> psObjects = testHost.InvokeCommand("Update-Item", p => p
             .WithParameter("Path", $@"ct-test:\customobjects\{customObject.Id}")
             .WithParameter("CustomObjectDraft", $$"""
                                                   {
@@ -269,6 +258,8 @@ public sealed class UpdateItemTests
         // Assert
         using var _ = new AssertionScope();
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+        psObjects.BaseObjectsAreAllOfType<ICustomObject>().Should().BeTrue();
+        psObjects.GetBaseObjects<ICustomObject>().Should().HaveCount(1);
     }
 
     [Fact]
@@ -298,7 +289,7 @@ public sealed class UpdateItemTests
             ).Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
 
         // Act
-        testHost.InvokeCommand("Update-Item", p => p
+        Collection<PSObject> psObjects = testHost.InvokeCommand("Update-Item", p => p
             .WithParameter("Path", $@"ct-test:\products\{product.Id}")
             .WithParameter("Actions", """
                                       [
@@ -315,5 +306,7 @@ public sealed class UpdateItemTests
         // Assert
         using var _ = new AssertionScope();
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+        psObjects.BaseObjectsAreAllOfType<IProduct>().Should().BeTrue();
+        psObjects.GetBaseObjects<IProduct>().Should().HaveCount(1);
     }
 }

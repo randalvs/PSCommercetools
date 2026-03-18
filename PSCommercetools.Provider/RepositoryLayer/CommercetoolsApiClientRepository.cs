@@ -17,9 +17,10 @@ public sealed class CommercetoolsApiClientRepository
         this.serializerService = serializerService;
     }
 
-    public void Remove(IApiClient entity)
+    public IApiClient Remove(IApiClient entity)
     {
-        ApiClientSdkProxy.DeleteFunc(projectApiRoot, entity);
+        IApiClient apiClient = ApiClientSdkProxy.DeleteFunc(projectApiRoot, entity);
+        return apiClient;
     }
 
     public bool ExistsById(string id)

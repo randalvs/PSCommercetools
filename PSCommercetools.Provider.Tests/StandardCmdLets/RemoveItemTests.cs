@@ -1,6 +1,10 @@
+using System.Collections.ObjectModel;
+using System.Management.Automation;
 using System.Net;
 using System.Net.Http;
 using commercetools.Sdk.Api.Models.Carts;
+using FluentAssertions;
+using PSCommercetools.Provider.Tests.Extensions;
 using PSCommercetools.Provider.Tests.Infrastructure;
 using PSCommercetools.Provider.Tests.TestDataProviders;
 using RichardSzalay.MockHttp;
@@ -31,13 +35,15 @@ public sealed class RemoveItemTests
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
 
         // Act
-        _ = testHost
+        Collection<PSObject> psObjects = testHost
             .InvokeCommand("Remove-Item", p => p
                 .WithParameter("Path", @$"ct-test:\carts\{cart.Id}")
             );
 
         // Assert
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+        psObjects.BaseObjectsAreAllOfType<ICart>().Should().BeTrue();
+        psObjects.GetBaseObjects<ICart>().Should().HaveCount(1);
     }
 
     [Fact]
@@ -68,7 +74,7 @@ public sealed class RemoveItemTests
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
 
         // Act
-        _ = testHost
+        Collection<PSObject> psObjects = testHost
             .InvokePipeline(cb => cb
                 .WithCommand("Get-ChildItem", p => p
                     .WithParameter("Path", @$"ct-test:\carts\{cart.Id}")
@@ -78,5 +84,7 @@ public sealed class RemoveItemTests
 
         // Assert
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+        psObjects.BaseObjectsAreAllOfType<ICart>().Should().BeTrue();
+        psObjects.GetBaseObjects<ICart>().Should().HaveCount(1);
     }
 }

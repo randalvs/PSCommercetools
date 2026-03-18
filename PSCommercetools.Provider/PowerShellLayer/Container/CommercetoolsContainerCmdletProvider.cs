@@ -141,7 +141,9 @@ public abstract class CommercetoolsContainerCmdletProvider : CommercetoolsItemCm
                 throw new ArgumentException("Error resolving entity service");
             }
 
-            entityService.Remove(commercetoolsEntityServiceParameters);
+            object removedEntity = entityService.Remove(commercetoolsEntityServiceParameters);
+
+            WriteItemObject(removedEntity, path, commercetoolsEntityService.IsContainer);
         }
         catch (Exception exception)
         {

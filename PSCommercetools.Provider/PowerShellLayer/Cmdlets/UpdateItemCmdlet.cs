@@ -41,7 +41,8 @@ public class UpdateItemCmdlet : CommercetoolsCmdlet
                 throw new ArgumentException("Error resolving entity service");
             }
 
-            UpdateEntity(entityService);
+            object updatedEntity = UpdateEntity(entityService);
+            WriteObject(updatedEntity);
         });
     }
 
@@ -64,11 +65,12 @@ public class UpdateItemCmdlet : CommercetoolsCmdlet
                 throw new ArgumentException("Error resolving entity service");
             }
 
-            UpdateEntity(entityService);
+            object updatedEntity = UpdateEntity(entityService);
+            WriteObject(updatedEntity);
         });
     }
 
-    private void UpdateEntity(IEntityService entityService)
+    private object UpdateEntity(IEntityService entityService)
     {
         EntityServiceParameters? entityServiceParameters =
             Expands?.Length > 0 ? new EntityServiceParameters { Expands = Expands } : null;
@@ -76,12 +78,13 @@ public class UpdateItemCmdlet : CommercetoolsCmdlet
         if (entityService is CommercetoolsEntityService<ICustomObject>)
         {
             ArgumentNullException.ThrowIfNull(CustomObjectDraft);
-            entityService.Update(CustomObjectDraft, entityServiceParameters);
-            return;
+            object updatedCustomObject = entityService.Update(CustomObjectDraft, entityServiceParameters);
+            return updatedCustomObject;
         }
 
         ArgumentNullException.ThrowIfNull(Actions);
-        entityService.Update(Actions, entityServiceParameters);
+        object updatedEntity = entityService.Update(Actions, entityServiceParameters);
+        return updatedEntity;
     }
 }
 

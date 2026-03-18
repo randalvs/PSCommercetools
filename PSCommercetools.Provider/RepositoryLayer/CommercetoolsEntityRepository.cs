@@ -36,9 +36,10 @@ public sealed class CommercetoolsEntityRepository
         }
     }
 
-    public void Remove<T>(T entity, string[]? expandClauses) where T : IBaseResource
+    public T Remove<T>(T entity, string[]? expandClauses) where T : IBaseResource
     {
-        GetTypedSdkProxy<T>().DeleteFunc(projectApiRoot, entity, expandClauses);
+        T removedEntity = GetTypedSdkProxy<T>().DeleteFunc(projectApiRoot, entity, expandClauses);
+        return removedEntity;
     }
 
     public bool ExistsById<T>(string id) where T : IBaseResource
@@ -75,9 +76,10 @@ public sealed class CommercetoolsEntityRepository
         return GetTypedSdkProxy<T>().CreateFunc(projectApiRoot, serializerService, serializedResource, expandClauses);
     }
 
-    public void Update<T>(T entity, object actions, string[]? expandClauses) where T : IBaseResource
+    public T Update<T>(T entity, object actions, string[]? expandClauses) where T : IBaseResource
     {
-        GetTypedSdkProxy<T>().UpdateFunc(projectApiRoot, serializerService, entity, actions, expandClauses);
+        T updatedEntity = GetTypedSdkProxy<T>().UpdateFunc(projectApiRoot, serializerService, entity, actions, expandClauses);
+        return updatedEntity;
     }
 
     private static ISdkProxy<T> GetTypedSdkProxy<T>() where T : IBaseResource

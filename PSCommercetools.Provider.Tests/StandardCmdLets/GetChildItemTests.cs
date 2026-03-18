@@ -58,7 +58,9 @@ public sealed class GetChildItemTests
             new ProjectChildEntity("attributegroups"),
             new ProjectChildEntity("apiclients"),
             new ProjectChildEntity("states"),
-            new ProjectChildEntity("payments")
+            new ProjectChildEntity("payments"),
+            new ProjectChildEntity("types"),
+            new ProjectChildEntity("zones")
         ]);
     }
 
@@ -91,7 +93,7 @@ public sealed class GetChildItemTests
                     "custom-objects" => CustomObjectTestDataProvider.Get(count).AsPagedQueryResponse()
                         .ToCommercetoolsJsonContent(),
                     "customers" => CustomerTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
-                    "customergroups" => CustomerGroupTestDataProvider.Get(count).AsPagedQueryResponse()
+                    "customer-groups" => CustomerGroupTestDataProvider.Get(count).AsPagedQueryResponse()
                         .ToCommercetoolsJsonContent(),
                     "discount-codes" => DiscountCodeTestDataProvider.Get(count).AsPagedQueryResponse()
                         .ToCommercetoolsJsonContent(),
@@ -113,8 +115,10 @@ public sealed class GetChildItemTests
                     "tax-categories" => TaxCategoryTestDataProvider.Get(count).AsPagedQueryResponse()
                         .ToCommercetoolsJsonContent(),
                     "api-clients" => ApiClientTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
-                    "states" => ApiClientTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
-                    "payments" => ApiClientTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
+                    "states" => StateTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
+                    "payments" => PaymentTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
+                    "types" => TypeTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
+                    "zones" => ZoneTestDataProvider.Get(count).AsPagedQueryResponse().ToCommercetoolsJsonContent(),
                     _ => throw new NotImplementedException()
                 };
             });
@@ -137,6 +141,7 @@ public sealed class GetChildItemTests
             new ProjectChildEntity("carts") { ChildCount = "20" },
             new ProjectChildEntity("orders") { ChildCount = "20" },
             new ProjectChildEntity("customers") { ChildCount = "20" },
+            new ProjectChildEntity("attributegroups") { ChildCount = "20" },
             new ProjectChildEntity("customergroups") { ChildCount = "20" },
             new ProjectChildEntity("businessunits") { ChildCount = "20" },
             new ProjectChildEntity("customobjects") { ChildCount = "20" },
@@ -151,11 +156,12 @@ public sealed class GetChildItemTests
             new ProjectChildEntity("cartdiscounts") { ChildCount = "20" },
             new ProjectChildEntity("discountcodes") { ChildCount = "20" },
             new ProjectChildEntity("producttypes") { ChildCount = "20" },
-            new ProjectChildEntity("attributegroups") { ChildCount = "20" },
             new ProjectChildEntity("apiclients") { ChildCount = "20" },
             new ProjectChildEntity("states") { ChildCount = "20" },
-            new ProjectChildEntity("payments") { ChildCount = "20" }
-        ]);
+            new ProjectChildEntity("payments") { ChildCount = "20" },
+            new ProjectChildEntity("types") { ChildCount = "20" },
+            new ProjectChildEntity("zones") { ChildCount = "20" }
+        ], options => options.WithoutStrictOrdering());
     }
 
     [Fact]
