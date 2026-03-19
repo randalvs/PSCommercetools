@@ -28,7 +28,7 @@ public sealed class GetItemTests
         ICart cart = CartTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
@@ -53,7 +53,7 @@ public sealed class GetItemTests
         IProduct product = ProductTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/products/{product.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/products/{product.Id}")
             .Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
@@ -78,7 +78,7 @@ public sealed class GetItemTests
         ICart cart = CartTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
             .WithQueryString("expand", "paymentInfo.payments[*].paymentStatus.state")

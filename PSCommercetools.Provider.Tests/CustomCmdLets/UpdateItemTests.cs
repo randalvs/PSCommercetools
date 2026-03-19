@@ -31,7 +31,7 @@ public sealed class UpdateItemTests
         IChannel channel = ChannelTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/channels/{channel.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/channels/{channel.Id}")
             .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
@@ -87,7 +87,7 @@ public sealed class UpdateItemTests
         IChannel channel = ChannelTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/channels/{channel.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/channels/{channel.Id}")
             .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
@@ -144,7 +144,7 @@ public sealed class UpdateItemTests
         IChannel channel = ChannelTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/channels/{channel.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/channels/{channel.Id}")
             .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
@@ -153,7 +153,7 @@ public sealed class UpdateItemTests
             .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/channels/{channel.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/channels/{channel.Id}")
             .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
@@ -213,7 +213,7 @@ public sealed class UpdateItemTests
         IChannel channel = ChannelTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/channels/{channel.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/channels/{channel.Id}")
             .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
@@ -271,7 +271,7 @@ public sealed class UpdateItemTests
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, "*/custom-objects")
             .WithQueryString("where", $"id=\"{customObject.Id}\"")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, "*/custom-objects")
             .WithQueryString("where", $"id=\"{customObject.Id}\"")
@@ -326,7 +326,7 @@ public sealed class UpdateItemTests
         IProduct product = ProductTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/products/{product.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/products/{product.Id}")
             .Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
@@ -374,7 +374,7 @@ public sealed class UpdateItemTests
         IProduct product = ProductTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/products/{product.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/products/{product.Id}")
             .Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());

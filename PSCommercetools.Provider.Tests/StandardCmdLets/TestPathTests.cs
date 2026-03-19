@@ -24,7 +24,7 @@ public sealed class TestPathTests
         ICart cart = CartTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
 
         // Act
         Collection<PSObject> psObjects = testHost

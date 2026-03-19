@@ -24,7 +24,7 @@ public sealed class RemoveItemTests
         ICart cart = CartTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
@@ -54,7 +54,7 @@ public sealed class RemoveItemTests
         ICart cart = CartTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
@@ -63,7 +63,7 @@ public sealed class RemoveItemTests
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
@@ -96,7 +96,7 @@ public sealed class RemoveItemTests
         ICart cart = CartTestDataProvider.Get();
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
             .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());

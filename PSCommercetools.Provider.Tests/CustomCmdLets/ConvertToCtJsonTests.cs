@@ -25,7 +25,7 @@ public sealed class ConvertToCtJsonTests
         string productJson = product.ToCommercetoolsJson(true);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/products/{product.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/products/{product.Id}")
             .Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
@@ -57,7 +57,7 @@ public sealed class ConvertToCtJsonTests
         string productJson = product.ToCommercetoolsJson(true);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/products/{product.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/products/{product.Id}")
             .Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
@@ -83,7 +83,7 @@ public sealed class ConvertToCtJsonTests
         string productJson = product.ToCommercetoolsJson(false);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Head, $"*/products/{product.Id}")
-            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+            .Respond(HttpStatusCode.OK);
         testHost.CommercetoolsMockHttpMessageHandler
             .Expect(HttpMethod.Get, $"*/products/{product.Id}")
             .Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
