@@ -140,7 +140,12 @@ internal sealed class SdkProxySourceBuilder(SdkProxyMetadata sdkProxyMetadata)
                      List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction>? actions = aj switch
                      {
                          string actionsString => s.Deserialize<List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction>>(actionsString),
-                         PSObject psObject => psObject.BaseObject as List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction>,
+                         PSObject psObject => psObject.BaseObject switch
+                         {
+                             List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction> list => list,
+                             string actionsString => s.Deserialize<List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction>>(actionsString),
+                             _ => null
+                         },
                          List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction> list => list, 
                          _ => null
                      };

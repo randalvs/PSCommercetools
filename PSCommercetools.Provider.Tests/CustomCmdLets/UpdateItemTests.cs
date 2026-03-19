@@ -414,4 +414,45 @@ public sealed class UpdateItemTests
         testHost.HasErrors.Should().BeTrue();
         testHost.Errors.Should().Contain(e => e.ToString().Contains("Version mismatch"));
     }
+
+    [Fact]
+    public void Should_Update_Channel_From_Script_Input_Using_Object()
+    {
+        IChannel channel = ChannelTestDataProvider.Get();
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Head, $"*/channels/{channel.Id}")
+            .Respond(HttpStatusCode.OK);
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Get, $"*/channels/{channel.Id}")
+            .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Post, $"*/channels/{channel.Id}")
+            .WithCommercetoolsJsonContent(new
+                {
+                    channel.Version,
+                    Actions = new IChannelUpdateAction[]
+                    {
+                        new ChannelChangeKeyAction
+                        {
+                            Key = "myNewChannelKey"
+                        }
+                    }
+                }
+            ).Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
+
+        testHost.InvokeScript($$"""
+                                $channelActions = (@(
+                                        @{
+                                            action = "changeKey"
+                                            key   = "myNewChannelKey"
+                                        }
+                                    ) | ConvertTo-Json -Depth 3 -AsArray)
+
+                                Update-Item -Path ct-test:\channels\{{channel.Id}} -Version {{channel.Version}} -Actions $channelActions
+                                """);
+
+        // Assert
+        using var _ = new AssertionScope();
+        testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+    }
 }
