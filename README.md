@@ -1,3 +1,6 @@
+[![PSGallery Version](https://img.shields.io/powershellgallery/v/PSCommercetools.Provider.svg)](https://www.powershellgallery.com/packages/PSCommercetools.Provider)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 <h1 align="center">
   <br>
   Powershell provider for Commercetools
