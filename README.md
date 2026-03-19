@@ -1,3 +1,5 @@
+
+
 <h1 align="center">
   <br>
   Powershell provider for Commercetools
@@ -5,6 +7,12 @@
 </h1>
 
 <h4 align="center">Gain command-line control over Commercetools with this PowerShell provider.</h4>
+<div align="center">
+  
+[![PSGallery Version](https://img.shields.io/powershellgallery/v/PSCommercetools.Provider.svg)](https://www.powershellgallery.com/packages/PSCommercetools.Provider)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
 
 ![show case provider](img/show_case_provider.gif)
 
