@@ -81,6 +81,63 @@ public sealed class UpdateItemTests
     }
 
     [Fact]
+    public void Should_Update_Channel_From_Path_Input_With_Version()
+    {
+        // Arrange
+        IChannel channel = ChannelTestDataProvider.Get();
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Head, $"*/channels/{channel.Id}")
+            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Get, $"*/channels/{channel.Id}")
+            .Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Post, $"*/channels/{channel.Id}")
+            .WithCommercetoolsJsonContent(new
+                {
+                    channel.Version,
+                    Actions = new IChannelUpdateAction[]
+                    {
+                        new ChannelChangeKeyAction
+                        {
+                            Key = "myNewChannelKey"
+                        },
+                        new ChannelChangeNameAction
+                        {
+                            Name = new LocalizedString { { "en", "new Channel Name EN" } }
+                        }
+                    }
+                }
+            ).Respond(HttpStatusCode.OK, _ => channel.ToCommercetoolsJsonContent());
+
+        // Act
+        Collection<PSObject> psObjects = testHost.InvokeCommand("Update-Item", p => p
+            .WithParameter("Path", $@"ct-test:\channels\{channel.Id}")
+            .WithParameter("Version", channel.Version)
+            .WithParameter("Actions", """
+                                      [
+                                      	{
+                                      		"action": "changeKey",
+                                      		"key": "myNewChannelKey"
+                                      	},
+                                      	{
+                                      		"action": "changeName",
+                                      		"name": {
+                                      			"en": "new Channel Name EN"
+                                      		}
+                                      	}
+                                      ]
+                                      """)
+        );
+
+        // Assert
+        using var _ = new AssertionScope();
+        testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
+        psObjects.BaseObjectsAreAllOfType<IChannel>().Should().BeTrue();
+        psObjects.GetBaseObjects<IChannel>().Should().HaveCount(1);
+    }
+
+    [Fact]
     public void Should_Update_Channel_From_Pipe_Input()
     {
         // Arrange
@@ -308,5 +365,53 @@ public sealed class UpdateItemTests
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
         psObjects.BaseObjectsAreAllOfType<IProduct>().Should().BeTrue();
         psObjects.GetBaseObjects<IProduct>().Should().HaveCount(1);
+    }
+
+    [Fact]
+    public void Should_Not_Update_Product_When_Wrong_Version_Is_Passed()
+    {
+        // Arrange
+        IProduct product = ProductTestDataProvider.Get();
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Head, $"*/products/{product.Id}")
+            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Get, $"*/products/{product.Id}")
+            .Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Post, $"*/products/{product.Id}")
+            .WithCommercetoolsJsonContent(new
+                {
+                    product.Version,
+                    Actions = new IProductUpdateAction[]
+                    {
+                        new ProductSetDescriptionAction
+                        {
+                            Description = new LocalizedString { { "en", "new Product Name EN" } }
+                        }
+                    }
+                }
+            ).Respond(HttpStatusCode.OK, _ => product.ToCommercetoolsJsonContent());
+
+        // Act
+        testHost.InvokeCommand("Update-Item", p => p
+            .WithParameter("Path", $@"ct-test:\products\{product.Id}")
+            .WithParameter("Version", product.Version + 1)
+            .WithParameter("Actions", """
+                                      [
+                                      	{
+                                      		"action": "setDescription",
+                                      		"description": {
+                                      			"en": "new Product Name EN"
+                                      		}
+                                      	}
+                                      ]
+                                      """)
+        );
+
+        // Assert
+        using var _ = new AssertionScope();
+        testHost.HasErrors.Should().BeTrue();
+        testHost.Errors.Should().Contain(e => e.ToString().Contains("Version mismatch"));
     }
 }

@@ -18,12 +18,12 @@ internal sealed class ApiClientEntityService : IEntityService
     public bool IsContainer => false;
     public object Entity { get; }
 
-    public object Remove(IEntityServiceParameters? _)
+    public object Remove(long? version, IEntityServiceParameters? _)
     {
         return commercetoolsApiClientRepository.Remove((IApiClient)Entity);
     }
 
-    public object Update(object actions, IEntityServiceParameters? _)
+    public object Update(long? version, object actions, IEntityServiceParameters? _)
     {
         throw new NotImplementedException();
     }

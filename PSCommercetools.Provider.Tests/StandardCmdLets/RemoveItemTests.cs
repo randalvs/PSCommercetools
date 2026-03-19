@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using commercetools.Sdk.Api.Models.Carts;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using PSCommercetools.Provider.Tests.Extensions;
 using PSCommercetools.Provider.Tests.Infrastructure;
 using PSCommercetools.Provider.Tests.TestDataProviders;
@@ -86,5 +87,37 @@ public sealed class RemoveItemTests
         testHost.CommercetoolsMockHttpMessageHandler.VerifyNoOutstandingExpectation();
         psObjects.BaseObjectsAreAllOfType<ICart>().Should().BeTrue();
         psObjects.GetBaseObjects<ICart>().Should().HaveCount(1);
+    }
+
+    [Fact]
+    public void Should_Not_Update_Item_When_Wrong_Version_Is_Passed()
+    {
+        // Arrange
+        ICart cart = CartTestDataProvider.Get();
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Head, $"*/carts/{cart.Id}")
+            .Respond(HttpStatusCode.OK, _ => new StringContent(string.Empty));
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
+            .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Get, $"*/carts/{cart.Id}")
+            .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
+        testHost.CommercetoolsMockHttpMessageHandler
+            .Expect(HttpMethod.Delete, $"*/carts/{cart.Id}")
+            .Respond(HttpStatusCode.OK, _ => cart.ToCommercetoolsJsonContent());
+
+        // Act
+        Collection<PSObject> psObjects = testHost
+            .InvokeCommand("Remove-Item", p => p
+                .WithParameter("Path", @$"ct-test:\carts\{cart.Id}")
+                .WithParameter("Version", cart.Version + 1)
+            );
+
+        // Assert
+        // Assert
+        using var _ = new AssertionScope();
+        testHost.HasErrors.Should().BeTrue();
+        testHost.Errors.Should().Contain(e => e.ToString().Contains("Version mismatch"));
     }
 }

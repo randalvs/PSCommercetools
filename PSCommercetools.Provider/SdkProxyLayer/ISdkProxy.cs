@@ -16,7 +16,7 @@ public interface ISdkProxy<T> : ISdkProxy where T : IBaseResource
     Func<ProjectApiRoot, string[]?, string?, long?, long?, string?, bool?, EntitiesContainer<T>> GetFunc { get; }
     Func<ProjectApiRoot, string, bool> ExistsByIdFunc { get; }
     Func<ProjectApiRoot, string, string[]?, T> GetByIdFunc { get; }
-    Func<ProjectApiRoot, T, string[]?, T> DeleteFunc { get; }
+    Func<ProjectApiRoot, T, long?, string[]?, T> DeleteFunc { get; }
     Func<ProjectApiRoot, SerializerService, string, string[]?, T> CreateFunc { get; }
-    Func<ProjectApiRoot, SerializerService, T, object, string[]?, T> UpdateFunc { get; }
+    Func<ProjectApiRoot, SerializerService, T, long?, object, string[]?, T> UpdateFunc { get; }
 }

@@ -12,6 +12,9 @@ namespace PSCommercetools.Provider.SdkProxyLayer;
 
 internal sealed class CustomObjectSdkProxy : SdkProxyBase, ISdkProxy<ICustomObject>
 {
+    public Func<ProjectApiRoot, SerializerService, ICustomObject, long?, object, string[]?, ICustomObject> UpdateFunc =>
+        (projectApiRoot, serializerService, _, _, json, expands) =>
+            CreateFunc(projectApiRoot, serializerService, json.ToString(), expands);
     //public Type EntityType => typeof(ICustomObject);
 
     public Func<ProjectApiRoot, string[]?, string?, long?, long?, string?, bool?, EntitiesContainer<ICustomObject>>
@@ -38,14 +41,15 @@ internal sealed class CustomObjectSdkProxy : SdkProxyBase, ISdkProxy<ICustomObje
             response.Total);
     };
 
-    public Func<ProjectApiRoot, ICustomObject, string[]?, ICustomObject> DeleteFunc => (projectApiRoot, customObject, _) =>
-        projectApiRoot
-            .CustomObjects()
-            .WithContainerAndKey(customObject.Container, customObject.Key)
-            .Delete()
-            .ExecuteAsync()
-            .GetAwaiter()
-            .GetResult();
+    public Func<ProjectApiRoot, ICustomObject, long?, string[]?, ICustomObject> DeleteFunc =>
+        (projectApiRoot, customObject, _, _) =>
+            projectApiRoot
+                .CustomObjects()
+                .WithContainerAndKey(customObject.Container, customObject.Key)
+                .Delete()
+                .ExecuteAsync()
+                .GetAwaiter()
+                .GetResult();
 
     public Func<ProjectApiRoot, SerializerService, string?, string[]?, ICustomObject> CreateFunc =>
         (projectApiRoot, serializerService, json, _) =>
@@ -58,10 +62,6 @@ internal sealed class CustomObjectSdkProxy : SdkProxyBase, ISdkProxy<ICustomObje
                 .GetAwaiter()
                 .GetResult();
         };
-
-    public Func<ProjectApiRoot, SerializerService, ICustomObject, object, string[]?, ICustomObject> UpdateFunc =>
-        (projectApiRoot, serializerService, _, json, expands) =>
-            CreateFunc(projectApiRoot, serializerService, json.ToString(), expands);
 
     public Func<ProjectApiRoot, string, string[]?, ICustomObject> GetByIdFunc => (projectApiRoot, id, expands) =>
     {

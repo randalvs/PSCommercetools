@@ -19,20 +19,21 @@ internal sealed class CommercetoolsEntityService<T> : IEntityService where T : I
     public object Entity { get; }
     public string Name => ((T)Entity).Id;
 
-    public object Remove(IEntityServiceParameters? entityServiceParameters)
+    public object Remove(long? version, IEntityServiceParameters? entityServiceParameters)
     {
         var commercetoolsEntityServicesParameters = entityServiceParameters as EntityServiceParameters;
 
-        T removedEntity = commercetoolsEntityRepository.Remove((T)Entity, commercetoolsEntityServicesParameters?.Expands);
+        T removedEntity =
+            commercetoolsEntityRepository.Remove((T)Entity, version, commercetoolsEntityServicesParameters?.Expands);
         return removedEntity;
     }
 
-    public object Update(object actions, IEntityServiceParameters? entityServiceParameters)
+    public object Update(long? version, object actions, IEntityServiceParameters? entityServiceParameters)
     {
         var commercetoolsEntityServicesParameters = entityServiceParameters as EntityServiceParameters;
 
         T updatedEntity =
-            commercetoolsEntityRepository.Update((T)Entity, actions, commercetoolsEntityServicesParameters?.Expands);
+            commercetoolsEntityRepository.Update((T)Entity, version, actions, commercetoolsEntityServicesParameters?.Expands);
         return updatedEntity;
     }
 }

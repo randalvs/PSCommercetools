@@ -17,6 +17,8 @@ namespace PSCommercetools.Provider.PowerShellLayer.CmdLets;
 [Cmdlet("Update", "Item", DefaultParameterSetName = "PathParameterSet")]
 public class UpdateItemCmdlet : CommercetoolsCmdlet
 {
+    [Parameter(Mandatory = false)] public long? Version { get; set; }
+
     [Parameter(Mandatory = false)]
     [ValidateNotNullOrEmpty]
     public object? Actions { get; set; }
@@ -41,7 +43,7 @@ public class UpdateItemCmdlet : CommercetoolsCmdlet
                 throw new ArgumentException("Error resolving entity service");
             }
 
-            object updatedEntity = UpdateEntity(entityService);
+            object updatedEntity = UpdateEntity(Version, entityService);
             WriteObject(updatedEntity);
         });
     }
@@ -65,12 +67,12 @@ public class UpdateItemCmdlet : CommercetoolsCmdlet
                 throw new ArgumentException("Error resolving entity service");
             }
 
-            object updatedEntity = UpdateEntity(entityService);
+            object updatedEntity = UpdateEntity(null, entityService);
             WriteObject(updatedEntity);
         });
     }
 
-    private object UpdateEntity(IEntityService entityService)
+    private object UpdateEntity(long? version, IEntityService entityService)
     {
         EntityServiceParameters? entityServiceParameters =
             Expands?.Length > 0 ? new EntityServiceParameters { Expands = Expands } : null;
@@ -78,12 +80,12 @@ public class UpdateItemCmdlet : CommercetoolsCmdlet
         if (entityService is CommercetoolsEntityService<ICustomObject>)
         {
             ArgumentNullException.ThrowIfNull(CustomObjectDraft);
-            object updatedCustomObject = entityService.Update(CustomObjectDraft, entityServiceParameters);
+            object updatedCustomObject = entityService.Update(null, CustomObjectDraft, entityServiceParameters);
             return updatedCustomObject;
         }
 
         ArgumentNullException.ThrowIfNull(Actions);
-        object updatedEntity = entityService.Update(Actions, entityServiceParameters);
+        object updatedEntity = entityService.Update(version, Actions, entityServiceParameters);
         return updatedEntity;
     }
 }

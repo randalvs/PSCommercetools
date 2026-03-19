@@ -94,9 +94,13 @@ internal sealed class SdkProxySourceBuilder(SdkProxyMetadata sdkProxyMetadata)
     private string CreateDeleteFuncBody()
     {
         return $$"""
-                 public Func<ProjectApiRoot, {{sdkProxyMetadata.EntityInterfaceName}}, string[]?, {{sdkProxyMetadata.EntityInterfaceName}}> DeleteFunc =>
-                 (p, e, expands) =>
+                 public Func<ProjectApiRoot, {{sdkProxyMetadata.EntityInterfaceName}}, long?, string[]?, {{sdkProxyMetadata.EntityInterfaceName}}> DeleteFunc =>
+                 (p, e, version, expands) =>
                  {
+                 if(version is not null && e.Version != version)
+                 {
+                        throw new ArgumentException($"Version mismatch. Entity version: {e.Version}, provided version: {version}");
+                 }
                  var deleteMethod = p.{{sdkProxyMetadata.EntityNamePlural}}().WithId(e.Id).Delete().WithVersion(e.Version);
                  deleteMethod = (expands ?? []).Aggregate(deleteMethod, (current, expand) => current.WithExpand(expand));
                  return deleteMethod.ExecuteAsync().GetAwaiter().GetResult();
@@ -126,8 +130,13 @@ internal sealed class SdkProxySourceBuilder(SdkProxyMetadata sdkProxyMetadata)
     private string CreateUpdateFuncBody()
     {
         return $$"""
-                 public Func<ProjectApiRoot, SerializerService, {{sdkProxyMetadata.EntityInterfaceName}}, object, string[]?, {{sdkProxyMetadata.EntityInterfaceName}}> UpdateFunc => (p, s, e, aj, expands) =>
+                 public Func<ProjectApiRoot, SerializerService, {{sdkProxyMetadata.EntityInterfaceName}}, long?, object, string[]?, {{sdkProxyMetadata.EntityInterfaceName}}> UpdateFunc => (p, s, e, version, aj, expands) =>
                  {
+                     if(version is not null && e.Version != version)
+                     {
+                         throw new ArgumentException($"Version mismatch. Entity version: {e.Version}, provided version: {version}");
+                     }
+                     
                      List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction>? actions = aj switch
                      {
                          string actionsString => s.Deserialize<List<{{sdkProxyMetadata.EntityInterfaceName}}UpdateAction>>(actionsString),

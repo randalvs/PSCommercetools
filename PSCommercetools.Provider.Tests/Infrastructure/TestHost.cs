@@ -34,7 +34,7 @@ internal sealed class TestHost
         serviceProvider.GetRequiredService<MockHttpMessageHandler>();
 
     public bool HasErrors => Errors.Count > 0;
-    private List<ErrorRecord> Errors { get; set; } = [];
+    public List<ErrorRecord> Errors { get; set; } = [];
 
     public TestHost Initialize()
     {
@@ -56,7 +56,7 @@ internal sealed class TestHost
 
     public TestHost WithTestPSDrive()
     {
-        ArgumentNullException.ThrowIfNull(powerShell, nameof(powerShell));
+        ArgumentNullException.ThrowIfNull(powerShell);
 
         powerShell.AddCommand("New-PsDrive");
         powerShell.AddParameter("PSProvider", ProviderName)
@@ -75,7 +75,7 @@ internal sealed class TestHost
 
     public TestHost Reset()
     {
-        ArgumentNullException.ThrowIfNull(powerShell, nameof(powerShell));
+        ArgumentNullException.ThrowIfNull(powerShell);
 
         powerShell.Commands.Clear();
         SetLocationTo(@"ct-test:\");
@@ -86,7 +86,7 @@ internal sealed class TestHost
 
     public void SetLocationTo(string path)
     {
-        ArgumentNullException.ThrowIfNull(powerShell, nameof(powerShell));
+        ArgumentNullException.ThrowIfNull(powerShell);
 
         powerShell.AddCommand("Set-Location");
         powerShell.AddParameter("Path", path);
@@ -96,7 +96,7 @@ internal sealed class TestHost
 
     public string? GetCurrentLocation()
     {
-        ArgumentNullException.ThrowIfNull(powerShell, nameof(powerShell));
+        ArgumentNullException.ThrowIfNull(powerShell);
 
         powerShell.AddCommand("Get-Location");
         powerShell.AddParameter("PSProvider", ProviderName);
@@ -121,7 +121,7 @@ internal sealed class TestHost
 
     public void InvokeScript(string script)
     {
-        ArgumentNullException.ThrowIfNull(powerShell, nameof(powerShell));
+        ArgumentNullException.ThrowIfNull(powerShell);
         powerShell.AddScript(script);
         powerShell.Invoke();
 
@@ -130,7 +130,7 @@ internal sealed class TestHost
 
     private Collection<PSObject>? InvokeInternal(string command, Action<ParameterBuilder>? parameterBuilderAction = null)
     {
-        ArgumentNullException.ThrowIfNull(powerShell, nameof(powerShell));
+        ArgumentNullException.ThrowIfNull(powerShell);
 
         powerShell.AddCommand(command);
 
@@ -156,7 +156,7 @@ internal sealed class TestHost
 
     public Collection<PSObject> InvokePipeline(Action<CommandBuilder> commandBuilderAction)
     {
-        ArgumentNullException.ThrowIfNull(powerShell, nameof(powerShell));
+        ArgumentNullException.ThrowIfNull(powerShell);
         Pipeline? pipeline = powerShell.Runspace.CreatePipeline();
 
         var commandBuilder = new CommandBuilder();
